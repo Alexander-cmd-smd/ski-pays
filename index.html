@@ -1,144 +1,763 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#06130f">
+
 <title>SKI PAYS</title>
+
 <style>
-:root{--bg:#06100e;--panel:#0d1b18;--line:#1d3b33;--text:#f5fff9;--muted:#9cb7ad;--green:#12f0a0}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 15% -10%,#12392c,transparent 38%),var(--bg);color:var(--text);font-family:system-ui,Arial,sans-serif}.app{max-width:1100px;margin:auto;padding:16px}.notice{background:#2a2110;border:1px solid #6d5422;color:#ffe6a4;padding:11px;border-radius:12px;font-size:12px}.brand{display:flex;align-items:center;gap:10px;font-size:24px;font-weight:900;margin:20px 0}.logo{width:42px;height:42px;border-radius:14px;background:var(--green);color:#042018;display:grid;place-items:center;font-size:26px}.brand em{color:var(--green);font-style:normal}.card{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:20px}.auth{max-width:480px;margin:25px auto}.muted,.note{color:var(--muted);font-size:13px;line-height:1.55}.field{margin:14px 0}.field label{display:block;color:#b7d0c6;font-size:12px;margin-bottom:7px}.field input,.field select{width:100%;padding:13px;border-radius:11px;border:1px solid #285044;background:#071510;color:white}.btn{border:0;border-radius:11px;padding:12px 16px;background:var(--green);color:#032016;font-weight:800;cursor:pointer}.secondary{background:#132c25;color:white;border:1px solid var(--line)}.full{width:100%}.switch{display:flex;gap:8px;margin:16px 0}.switch button{flex:1}.status{display:none;padding:12px;border-radius:10px;background:#102b22;color:var(--green);font-size:13px;margin-top:12px}.layout{display:grid;grid-template-columns:200px 1fr;gap:18px}.side{padding:10px;height:max-content}.navbtn{width:100%;text-align:left;background:none;border:0;color:#a8c2b8;padding:13px;border-radius:11px;cursor:pointer}.navbtn.active,.navbtn:hover{background:#103b2d;color:var(--green)}.page{display:none}.page.active{display:block}.heading{display:flex;justify-content:space-between;align-items:center;gap:12px}.heading h1{margin:8px 0}.balance{margin:16px 0;background:linear-gradient(120deg,#0b3d2d,#0b211b);border:1px solid #1c654b;border-radius:20px;padding:24px}.amount{font-size:38px;font-weight:850;margin:10px 0 18px}.actions{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:15px 0}.action{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:18px 8px;color:white;cursor:pointer}.action b,.action span{display:block}.action span{font-size:11px;color:var(--muted);margin-top:5px}.lower{display:grid;grid-template-columns:1fr 1fr;gap:14px}.tx{padding:12px 0;border-bottom:1px solid var(--line);font-size:13px}.empty{text-align:center;color:var(--muted);padding:20px}.footer{text-align:center;color:#648278;font-size:11px;padding:22px}.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:white;color:#052219;border-radius:10px;padding:12px;display:none}
-@media(max-width:760px){.layout{grid-template-columns:1fr}.side{display:flex;overflow:auto}.navbtn{min-width:max-content;width:auto}.actions{grid-template-columns:repeat(2,1fr)}.lower{grid-template-columns:1fr}.app{padding:12px}} 
+:root {
+  --bg: #06100e;
+  --panel: #0d1b18;
+  --line: #1d3b33;
+  --text: #f5fff9;
+  --muted: #9cb7ad;
+  --green: #12f0a0;
+  --red: #ff8a8a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(ellipse at 15% -10%, #12392c, transparent 38%),
+    var(--bg);
+  color: var(--text);
+  font-family: system-ui, Arial, sans-serif;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.app {
+  max-width: 1100px;
+  margin: auto;
+  padding: 16px;
+}
+
+.notice {
+  background: #2a2110;
+  border: 1px solid #6d5422;
+  color: #ffe6a4;
+  padding: 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 24px;
+  font-weight: 900;
+  margin: 20px 0;
+}
+
+.logo {
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  background: var(--green);
+  color: #042018;
+  display: grid;
+  place-items: center;
+  font-size: 26px;
+}
+
+.brand em {
+  color: var(--green);
+  font-style: normal;
+}
+
+.card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 20px;
+}
+
+.auth {
+  max-width: 480px;
+  margin: 25px auto;
+}
+
+.muted,
+.note {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+  white-space: pre-line;
+}
+
+.field {
+  margin: 14px 0;
+}
+
+.field label {
+  display: block;
+  color: #b7d0c6;
+  font-size: 12px;
+  margin-bottom: 7px;
+}
+
+.field input,
+.field select {
+  width: 100%;
+  padding: 13px;
+  border-radius: 11px;
+  border: 1px solid #285044;
+  background: #071510;
+  color: white;
+  outline: none;
+}
+
+.field input:focus {
+  border-color: var(--green);
+}
+
+.btn {
+  border: 0;
+  border-radius: 11px;
+  padding: 12px 16px;
+  background: var(--green);
+  color: #032016;
+  font-weight: 800;
+}
+
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.secondary {
+  background: #132c25;
+  color: white;
+  border: 1px solid var(--line);
+}
+
+.full {
+  width: 100%;
+}
+
+.switch {
+  display: flex;
+  gap: 8px;
+  margin: 16px 0;
+}
+
+.switch button {
+  flex: 1;
+}
+
+.status {
+  display: none;
+  padding: 12px;
+  border-radius: 10px;
+  background: #102b22;
+  color: var(--green);
+  font-size: 13px;
+  line-height: 1.6;
+  margin-top: 12px;
+  overflow-wrap: anywhere;
+}
+
+.status.error {
+  background: #321b1b;
+  color: #ffaaaa;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 18px;
+}
+
+.side {
+  padding: 10px;
+  height: max-content;
+}
+
+.navbtn {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: 0;
+  color: #a8c2b8;
+  padding: 13px;
+  border-radius: 11px;
+}
+
+.navbtn.active,
+.navbtn:hover {
+  background: #103b2d;
+  color: var(--green);
+}
+
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+}
+
+.heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.heading h1 {
+  margin: 8px 0;
+}
+
+.balance {
+  margin: 16px 0;
+  background: linear-gradient(120deg, #0b3d2d, #0b211b);
+  border: 1px solid #1c654b;
+  border-radius: 20px;
+  padding: 24px;
+}
+
+.amount {
+  font-size: clamp(28px, 5vw, 38px);
+  font-weight: 850;
+  margin: 10px 0 18px;
+  overflow-wrap: anywhere;
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.action {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 15px;
+  padding: 18px 8px;
+  color: white;
+}
+
+.action b,
+.action span {
+  display: block;
+}
+
+.action span {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 5px;
+}
+
+.lower {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.tx {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+.tx:last-child {
+  border-bottom: 0;
+}
+
+.empty {
+  text-align: center;
+  color: var(--muted);
+  padding: 20px;
+  font-size: 13px;
+}
+
+.footer {
+  text-align: center;
+  color: #648278;
+  font-size: 11px;
+  padding: 22px;
+}
+
+.toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  color: #052219;
+  border-radius: 10px;
+  padding: 12px 18px;
+  display: none;
+  z-index: 1000;
+  width: max-content;
+  max-width: 90%;
+  font-size: 13px;
+}
+
+@media(max-width: 760px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .side {
+    display: flex;
+    overflow-x: auto;
+    gap: 4px;
+  }
+
+  .navbtn {
+    min-width: max-content;
+    width: auto;
+  }
+
+  .actions {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .lower {
+    grid-template-columns: 1fr;
+  }
+
+  .app {
+    padding: 12px;
+  }
+
+  .card {
+    padding: 16px;
+  }
+}
 </style>
 </head>
+
 <body>
+
 <div class="app">
-  <div class="notice"><b>PROTOTYPE:</b> Authentication is connected to Firebase; wallet balance and payment screens are demonstrations only. No real money moves through this website.</div>
-  <div class="brand"><div class="logo">S</div><div>SKI <em>PAYS</em></div></div>
+
+  <div class="notice">
+    <b>PROTOTYPE:</b>
+    SKI PAYS uses Firebase for authentication.
+    Wallet balances, transfers, airtime and data purchases are demonstrations only.
+    No real money moves through this website.
+  </div>
+
+  <div class="brand">
+    <div class="logo">S</div>
+    <div>SKI <em>PAYS</em></div>
+  </div>
+
+  <!-- AUTHENTICATION -->
 
   <section id="auth" class="auth card">
+
     <h1 id="authTitle">Create your account</h1>
-    <p id="authSub" class="muted">Join SKI PAYS with your email address.</p>
+
+    <p id="authSub" class="muted">
+      Join SKI PAYS with your email address.
+    </p>
+
     <div class="switch">
-      <button id="signupTab" class="btn" onclick="setMode('signup')">Create account</button>
-      <button id="loginTab" class="btn secondary" onclick="setMode('login')">Log in</button>
+      <button id="signupTab"
+              class="btn"
+              type="button"
+              onclick="setMode('signup')">
+        Create account
+      </button>
+
+      <button id="loginTab"
+              class="btn secondary"
+              type="button"
+              onclick="setMode('login')">
+        Log in
+      </button>
     </div>
+
     <form id="authForm">
+
       <div class="field" id="nameWrap">
         <label for="name">Full name</label>
-        <input id="name" maxlength="80" autocomplete="name" placeholder="Your full name">
+        <input id="name"
+               maxlength="80"
+               autocomplete="name"
+               placeholder="Your full name">
       </div>
+
       <div class="field">
         <label for="email">Email address</label>
-        <input id="email" type="email" required autocomplete="email" placeholder="you@example.com">
+        <input id="email"
+               type="email"
+               required
+               autocomplete="email"
+               placeholder="you@example.com">
       </div>
+
       <div class="field">
         <label for="password">Password (at least 6 characters)</label>
-        <input id="password" type="password" minlength="6" required autocomplete="new-password" placeholder="Create a strong password">
+        <input id="password"
+               type="password"
+               minlength="6"
+               required
+               autocomplete="new-password"
+               placeholder="Enter your password">
       </div>
-      <button id="submit" class="btn full" type="submit">Create account</button>
+
+      <button id="submit"
+              class="btn full"
+              type="submit">
+        Create account
+      </button>
+
     </form>
-    <button class="btn secondary" style="margin-top:10px;width:100%" onclick="resendVerification()">Resend verification email</button>
-    <div id="authStatus" class="status"></div>
-    <p class="note">Use an email address you control. Verify your email before logging in. Never share your password or verification link.</p>
+
+    <button id="resendBtn"
+            class="btn secondary full"
+            style="margin-top:10px"
+            type="button"
+            onclick="resendVerification()">
+      Resend verification email
+    </button>
+
+    <div id="authStatus" class="status" role="status"></div>
+
+    <p class="note">
+      Use an email address you control.
+      Verify your email before logging in.
+      Never share your password or verification link.
+    </p>
+
   </section>
 
+  <!-- APPLICATION -->
+
   <div id="workspace" style="display:none">
+
     <div class="layout">
+
       <aside class="side card">
+
         <button class="navbtn active" data-page="home">⌂ Home</button>
         <button class="navbtn" data-page="transfer">➤ Send money</button>
         <button class="navbtn" data-page="add">＋ Add money</button>
         <button class="navbtn" data-page="airtime">▣ Airtime & data</button>
         <button class="navbtn" data-page="history">◷ Transactions</button>
         <button class="navbtn" data-page="account">◎ Account</button>
+
       </aside>
+
       <main>
+
+        <!-- HOME -->
+
         <section id="page-home" class="page active">
+
           <div class="heading">
             <div>
               <h1 id="greeting">Good day 👋</h1>
-              <p class="muted">Welcome to your SKI PAYS demo dashboard.</p>
+              <p class="muted">Welcome to your SKI PAYS dashboard.</p>
             </div>
-            <button class="btn secondary" onclick="showPage('account')">My account</button>
+
+            <button class="btn secondary"
+                    onclick="showPage('account')">
+              My account
+            </button>
           </div>
+
           <div class="balance">
             <div class="muted">Demo wallet balance</div>
+
             <div id="balance" class="amount">₦0.00</div>
-            <button class="btn" onclick="showPage('add')">＋ Add money</button>
-            <button class="btn secondary" onclick="showPage('transfer')">➤ Send money</button>
+
+            <button class="btn"
+                    onclick="showPage('add')">
+              ＋ Add money
+            </button>
+
+            <button class="btn secondary"
+                    onclick="showPage('transfer')">
+              ➤ Send money
+            </button>
           </div>
+
           <div class="actions">
-            <button class="action" onclick="showPage('add')">＋<b>Add money</b><span>Demo only</span></button>
-            <button class="action" onclick="showPage('transfer')">➤<b>Send money</b><span>Bank / wallet</span></button>
-            <button class="action" onclick="showPage('airtime')">▣<b>Airtime</b><span>Preview</span></button>
-            <button class="action" onclick="showPage('airtime')">⌁<b>Buy data</b><span>Preview</span></button>
+
+            <button class="action" onclick="showPage('add')">
+              ＋
+              <b>Add money</b>
+              <span>Demo only</span>
+            </button>
+
+            <button class="action" onclick="showPage('transfer')">
+              ➤
+              <b>Send money</b>
+              <span>Bank / wallet</span>
+            </button>
+
+            <button class="action" onclick="showPage('airtime')">
+              ▣
+              <b>Airtime</b>
+              <span>Preview</span>
+            </button>
+
+            <button class="action" onclick="showPage('airtime')">
+              ⌁
+              <b>Buy data</b>
+              <span>Preview</span>
+            </button>
+
           </div>
+
           <div class="lower">
+
             <div class="card">
               <h3>Recent transactions</h3>
-              <div id="recent" class="empty">Your demo transactions will appear here.</div>
+              <div id="recent" class="empty">
+                Your demo transactions will appear here.
+              </div>
             </div>
+
             <div class="card">
               <h3>SKI PAYS</h3>
-              <p class="muted">Designed for simple payments across Nigeria. Real transfers require a suitable licensed financial partner and secure backend.</p>
+              <p class="muted">
+                Designed for simple payments across Nigeria.
+                Real transfers require an appropriate licensed financial
+                partner, secure backend and additional compliance measures.
+              </p>
             </div>
+
           </div>
+
         </section>
+
+        <!-- SEND MONEY -->
 
         <section id="page-transfer" class="page card">
+
           <h1>Send money</h1>
-          <p class="muted">Demo form only. No real transfer is made.</p>
-          <div class="field"><label for="bank">Bank or wallet</label><input id="bank" placeholder="Access Bank, OPay, PalmPay..."></div>
-          <div class="field"><label for="account">Account number</label><input id="account" inputmode="numeric" maxlength="10" placeholder="10-digit account number"></div>
-          <div class="field"><label for="recipient">Recipient name (demo)</label><input id="recipient" placeholder="Recipient name"></div>
-          <div class="field"><label for="amount">Amount (NGN)</label><input id="amount" type="number" min="1" placeholder="Amount"></div>
-          <button class="btn full" onclick="demoTransfer()">Review demo transfer</button>
-          <div id="transferStatus" class="status"></div>
+
+          <p class="muted">
+            Demo form only. No real transfer is made.
+          </p>
+
+          <div class="field">
+            <label for="bank">Bank or wallet</label>
+            <input id="bank"
+                   placeholder="Access Bank, OPay, PalmPay...">
+          </div>
+
+          <div class="field">
+            <label for="accountNumber">Account number</label>
+            <input id="accountNumber"
+                   inputmode="numeric"
+                   maxlength="10"
+                   placeholder="10-digit account number">
+          </div>
+
+          <div class="field">
+            <label for="recipient">Recipient name (demo)</label>
+            <input id="recipient" placeholder="Recipient name">
+          </div>
+
+          <div class="field">
+            <label for="transferAmount">Amount (NGN)</label>
+            <input id="transferAmount"
+                   type="number"
+                   min="1"
+                   step="0.01"
+                   placeholder="Amount">
+          </div>
+
+          <button class="btn full" onclick="demoTransfer()">
+            Review demo transfer
+          </button>
+
+          <div id="transferStatus" class="status" role="status"></div>
+
         </section>
+
+        <!-- ADD MONEY -->
 
         <section id="page-add" class="page card">
+
           <h1>Add money</h1>
-          <p class="muted">This is a demo. You can add fake money to test the balance system.</p>
-          <div class="field"><label for="addAmount">Amount to add (NGN)</label><input id="addAmount" type="number" min="100" placeholder="e.g. 5000"></div>
-          <button class="btn full" onclick="demoAddMoney()">Add demo money</button>
-          <div id="addStatus" class="status"></div>
+
+          <p class="muted">
+            Add fictional money to test the demo balance system.
+          </p>
+
+          <div class="field">
+            <label for="addAmount">Amount to add (NGN)</label>
+            <input id="addAmount"
+                   type="number"
+                   min="100"
+                   step="0.01"
+                   placeholder="e.g. 5000">
+          </div>
+
+          <button class="btn full" onclick="demoAddMoney()">
+            Add demo money
+          </button>
+
+          <div id="addStatus" class="status" role="status"></div>
+
         </section>
+
+        <!-- AIRTIME AND DATA -->
 
         <section id="page-airtime" class="page card">
+
           <h1>Airtime & data</h1>
-          <p class="muted">Preview only — no real purchase is made.</p>
-          <div class="field"><label for="network">Network</label><input id="network" placeholder="MTN, Airtel, Glo, 9mobile"></div>
-          <div class="field"><label for="phone">Phone number</label><input id="phone" maxlength="11" placeholder="08012345678"></div>
-          <div class="field"><label for="topup">Amount (NGN)</label><input id="topup" type="number" min="50" placeholder="Amount"></div>
-          <button class="btn full" onclick="previewTopup()">Preview purchase</button>
-          <div id="topupStatus" class="status"></div>
+
+          <p class="muted">
+            Preview only. No real purchase is made.
+          </p>
+
+          <div class="field">
+            <label for="network">Network</label>
+            <select id="network">
+              <option value="">Choose network</option>
+              <option value="MTN">MTN</option>
+              <option value="Airtel">Airtel</option>
+              <option value="Glo">Glo</option>
+              <option value="9mobile">9mobile</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="phone">Phone number</label>
+            <input id="phone"
+                   inputmode="numeric"
+                   maxlength="11"
+                   placeholder="08012345678">
+          </div>
+
+          <div class="field">
+            <label for="topup">Amount (NGN)</label>
+            <input id="topup"
+                   type="number"
+                   min="50"
+                   step="0.01"
+                   placeholder="Amount">
+          </div>
+
+          <button class="btn full" onclick="previewTopup()">
+            Preview purchase
+          </button>
+
+          <div id="topupStatus" class="status" role="status"></div>
+
         </section>
+
+        <!-- TRANSACTION HISTORY -->
 
         <section id="page-history" class="page card">
+
           <h1>Transactions</h1>
+
           <p class="muted">Your demo activity</p>
-          <div id="history" class="empty">No demo transactions yet.</div>
+
+          <div id="history" class="empty">
+            No demo transactions yet.
+          </div>
+
         </section>
+
+        <!-- ACCOUNT -->
 
         <section id="page-account" class="page card">
+
           <h1>Account</h1>
+
           <p id="accountInfo" class="muted"></p>
-          <p class="note">Email verification is required. This login does not create a bank account or a wallet holding real funds.</p>
-          <button class="btn secondary" onclick="sendVerification()">Send verification email again</button>
-          <button class="btn" onclick="logout()">Log out</button>
+
+          <p class="note">
+            Email verification is required.
+            This login does not create a bank account or a wallet holding real funds.
+          </p>
+
+          <button class="btn secondary"
+                  onclick="sendVerification()">
+            Send verification email
+          </button>
+
+          <button class="btn"
+                  style="margin-left:6px"
+                  onclick="logout()">
+            Log out
+          </button>
+
+          <div id="accountStatus" class="status" role="status"></div>
+
         </section>
+
       </main>
+
     </div>
+
   </div>
 
-  <div class="footer">SKI PAYS · Your Money. Your Way. · Prototype only</div>
-  <div id="toast" class="toast"></div>
+  <div class="footer">
+    SKI PAYS · Your Money. Your Way. · Prototype only
+  </div>
+
+  <div id="toast" class="toast" role="status"></div>
+
 </div>
 
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendEmailVerification, onAuthStateChanged, signOut, reload, updateProfile } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, addDoc, query, orderBy, limit, getDocs, serverTimestamp, increment } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+import {
+  initializeApp
+} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  sendEmailVerification,
+  onAuthStateChanged,
+  signOut,
+  reload,
+  updateProfile
+} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc,
+  updateDoc,
+  collection,
+  addDoc,
+  query,
+  orderBy,
+  limit,
+  getDocs,
+  serverTimestamp,
+  increment
+} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+
+// =======================================
+// FIREBASE CONFIGURATION
+// =======================================
 
 const firebaseConfig = {
   apiKey: "AIzaSyATUZDAhv5F6TZzKEyaa55V1XPm88I93vI",
@@ -154,107 +773,417 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 let mode = "signup";
+let busy = false;
 
 const $ = id => document.getElementById(id);
 
-function status(id, msg) {
-  $(id).textContent = msg;
-  $(id).style.display = "block";
+
+// =======================================
+// STATUS MESSAGES
+// =======================================
+
+function status(id, message, isError = false) {
+  const element = $(id);
+
+  if (!element) return;
+
+  element.textContent = message;
+  element.classList.toggle("error", isError);
+  element.style.display = "block";
 }
 
-function errMsg(e) {
-  return ({
-    "auth/email-already-in-use": "An account already exists with this email. Try logging in.",
-    "auth/invalid-email": "Enter a valid email address.",
-    "auth/weak-password": "Use a stronger password with at least 6 characters.",
-    "auth/invalid-credential": "Email or password is incorrect.",
-    "auth/network-request-failed": "Network error. Check your internet connection.",
-    "auth/too-many-requests": "Too many attempts. Wait a little and try again."
-  })[e.code] || "Could not complete that action. Check your connection and Firebase settings.";
+function hideStatus(id) {
+  const element = $(id);
+
+  if (!element) return;
+
+  element.textContent = "";
+  element.style.display = "none";
+  element.classList.remove("error");
 }
 
-function money(n) {
-  return "₦" + Number(n).toLocaleString("en-NG", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+function toast(message) {
+  const element = $("toast");
+
+  element.textContent = message;
+  element.style.display = "block";
+
+  clearTimeout(toast.timer);
+
+  toast.timer = setTimeout(() => {
+    element.style.display = "none";
+  }, 3000);
 }
 
-// ========== AUTH ==========
-window.setMode = m => {
-  mode = m;
-  $("authTitle").textContent = m === "signup" ? "Create your account" : "Welcome back";
-  $("authSub").textContent = m === "signup" ? "Join SKI PAYS with your email address." : "Log in with your verified email address.";
-  $("nameWrap").style.display = m === "signup" ? "block" : "none";
-  $("password").autocomplete = m === "signup" ? "new-password" : "current-password";
-  $("submit").textContent = m === "signup" ? "Create account" : "Log in";
-  $("signupTab").className = m === "signup" ? "btn" : "btn secondary";
-  $("loginTab").className = m === "login" ? "btn" : "btn secondary";
-  $("authStatus").style.display = "none";
+
+// =======================================
+// ERROR HANDLING
+// =======================================
+
+function errMsg(error) {
+  const messages = {
+    "auth/email-already-in-use":
+      "An account already exists with this email. Try logging in.",
+
+    "auth/invalid-email":
+      "Enter a valid email address.",
+
+    "auth/weak-password":
+      "Use a stronger password with at least 6 characters.",
+
+    "auth/invalid-credential":
+      "Email or password is incorrect.",
+
+    "auth/user-not-found":
+      "No account was found with those details.",
+
+    "auth/wrong-password":
+      "Your password is incorrect.",
+
+    "auth/network-request-failed":
+      "Network error. Check your internet connection.",
+
+    "auth/too-many-requests":
+      "Too many attempts. Wait a little and try again.",
+
+    "auth/operation-not-allowed":
+      "Email/password login is disabled in Firebase Authentication.",
+
+    "auth/invalid-api-key":
+      "Your Firebase API key is invalid. Check your Firebase configuration.",
+
+    "auth/unauthorized-domain":
+      "This website domain is not authorized in Firebase Authentication.",
+
+    "permission-denied":
+      "Firebase Firestore denied access. Check your Firestore security rules.",
+
+    "unavailable":
+      "Firebase is temporarily unavailable. Check your internet connection."
+  };
+
+  if (messages[error.code]) {
+    return messages[error.code];
+  }
+
+  if (
+    error.code === "permission-denied" ||
+    error.code === "firestore/permission-denied"
+  ) {
+    return "Firestore access denied. Check your Firebase security rules.";
+  }
+
+  console.error("SKI PAYS error:", error);
+
+  return error.message
+    ? "Error: " + error.message
+    : "Something went wrong. Please try again.";
+}
+
+
+// =======================================
+// FORMATTING
+// =======================================
+
+function money(value) {
+  const amount = Number(value);
+
+  if (!Number.isFinite(amount)) {
+    return "₦0.00";
+  }
+
+  return "₦" + amount.toLocaleString("en-NG", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  });
+}
+
+function escapeHTML(value) {
+  return String(value ?? "").replace(/[&<>"']/g, character => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  })[character]);
+}
+
+function validAmount(value, minimum = 1) {
+  const amount = Number(value);
+
+  return Number.isFinite(amount) &&
+         amount >= minimum &&
+         amount <= 100000000 &&
+         Math.round(amount * 100) === amount * 100;
+}
+
+
+// =======================================
+// AUTHENTICATION MODE
+// =======================================
+
+window.setMode = function(newMode) {
+  mode = newMode;
+
+  $("authTitle").textContent =
+    mode === "signup" ? "Create your account" : "Welcome back";
+
+  $("authSub").textContent =
+    mode === "signup"
+      ? "Join SKI PAYS with your email address."
+      : "Log in with your verified email address.";
+
+  $("nameWrap").style.display =
+    mode === "signup" ? "block" : "none";
+
+  $("name").required = mode === "signup";
+
+  $("password").autocomplete =
+    mode === "signup" ? "new-password" : "current-password";
+
+  $("submit").textContent =
+    mode === "signup" ? "Create account" : "Log in";
+
+  $("signupTab").className =
+    mode === "signup" ? "btn" : "btn secondary";
+
+  $("loginTab").className =
+    mode === "login" ? "btn" : "btn secondary";
+
+  hideStatus("authStatus");
 };
 
-$("authForm").addEventListener("submit", async e => {
-  e.preventDefault();
+
+// =======================================
+// SIGN UP AND LOGIN
+// =======================================
+
+$("authForm").addEventListener("submit", async event => {
+  event.preventDefault();
+
+  if (busy) return;
+
+  busy = true;
   $("submit").disabled = true;
+
+  hideStatus("authStatus");
+
+  const email = $("email").value.trim();
+  const password = $("password").value;
+  const name = $("name").value.trim();
+
   try {
+
     if (mode === "signup") {
-      const cred = await createUserWithEmailAndPassword(auth, $("email").value.trim(), $("password").value);
-      if ($("name").value.trim()) await updateProfile(cred.user, { displayName: $("name").value.trim() });
-      await sendEmailVerification(cred.user);
-      await signOut(auth);
-      status("authStatus", "Account created. We sent a verification email. Verify your email, then return and choose Log in. Check spam/junk too.");
-    } else {
-      const cred = await signInWithEmailAndPassword(auth, $("email").value.trim(), $("password").value);
-      await reload(cred.user);
-      if (!cred.user.emailVerified) {
-        await sendEmailVerification(cred.user).catch(() => {});
-        await signOut(auth);
-        status("authStatus", "Email not verified yet. We sent another verification email where possible. Verify it, then log in again.");
+
+      if (!name) {
+        status("authStatus", "Please enter your full name.", true);
+        return;
       }
+
+      const credential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
+      if (name) {
+        await updateProfile(credential.user, {
+          displayName: name
+        });
+      }
+
+      await sendEmailVerification(credential.user);
+
+      await signOut(auth);
+
+      $("password").value = "";
+
+      status(
+        "authStatus",
+        "Your account has been created! A verification email has been sent. Open your email, click the verification link, then return here and log in. Check your spam folder too."
+      );
+
+    } else {
+
+      const credential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
+      await reload(credential.user);
+
+      if (!credential.user.emailVerified) {
+
+        try {
+          await sendEmailVerification(credential.user);
+        } catch (verificationError) {
+          console.error(verificationError);
+        }
+
+        await signOut(auth);
+
+        status(
+          "authStatus",
+          "Your email is not verified yet. Check your inbox for a verification link. We attempted to send another email. Verify your account before logging in."
+        );
+
+        return;
+      }
+
+      // The authentication listener will display the dashboard.
+      status("authStatus", "Login successful.");
+
     }
-  } catch (e) {
-    status("authStatus", errMsg(e));
+
+  } catch (error) {
+
+    status("authStatus", errMsg(error), true);
+
   } finally {
+
+    busy = false;
     $("submit").disabled = false;
+
   }
 });
 
-window.resendVerification = async () => {
-  if (!\( ("email").value.trim() || ! \)("password").value) {
-    status("authStatus", "Enter your email and password first, then request a verification email.");
+
+// =======================================
+// RESEND VERIFICATION EMAIL
+// =======================================
+
+window.resendVerification = async function() {
+
+  if (busy) return;
+
+  const email = $("email").value.trim();
+  const password = $("password").value;
+
+  if (!email || !password) {
+    status(
+      "authStatus",
+      "Enter your email and password first so we can identify your account.",
+      true
+    );
     return;
   }
+
+  busy = true;
+  $("resendBtn").disabled = true;
+
   try {
-    const cred = await signInWithEmailAndPassword(auth, $("email").value.trim(), $("password").value);
-    await reload(cred.user);
-    if (cred.user.emailVerified) {
-      status("authStatus", "Your email is already verified. You can log in.");
+
+    const credential = await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+
+    await reload(credential.user);
+
+    if (credential.user.emailVerified) {
+
+      status(
+        "authStatus",
+        "Your email is already verified. You can log in."
+      );
+
     } else {
-      await sendEmailVerification(cred.user);
-      status("authStatus", "Verification email sent. Check your inbox and spam folder.");
+
+      await sendEmailVerification(credential.user);
+
+      status(
+        "authStatus",
+        "Verification email sent. Check your inbox and spam folder."
+      );
+
     }
+
     await signOut(auth);
-  } catch (e) {
-    status("authStatus", errMsg(e));
+
+  } catch (error) {
+
+    status("authStatus", errMsg(error), true);
+
+  } finally {
+
+    busy = false;
+    $("resendBtn").disabled = false;
+
   }
 };
 
-window.sendVerification = async () => {
-  if (auth.currentUser) {
-    try {
-      await sendEmailVerification(auth.currentUser);
-      alert("Verification email sent.");
-    } catch (e) {
-      alert(errMsg(e));
+
+// =======================================
+// ACCOUNT VERIFICATION
+// =======================================
+
+window.sendVerification = async function() {
+
+  const user = auth.currentUser;
+
+  if (!user) {
+    status("accountStatus", "Please log in first.", true);
+    return;
+  }
+
+  try {
+
+    await reload(user);
+
+    if (user.emailVerified) {
+      status("accountStatus", "Your email is already verified.");
+      return;
     }
+
+    await sendEmailVerification(user);
+
+    status(
+      "accountStatus",
+      "Verification email sent. Check your inbox and spam folder."
+    );
+
+  } catch (error) {
+
+    status("accountStatus", errMsg(error), true);
+
   }
 };
 
-window.logout = () => signOut(auth);
 
-// ========== FIRESTORE HELPERS ==========
+// =======================================
+// LOG OUT
+// =======================================
+
+window.logout = async function() {
+
+  try {
+
+    await signOut(auth);
+    toast("You have logged out.");
+
+  } catch (error) {
+
+    toast(errMsg(error));
+
+  }
+
+};
+
+
+// =======================================
+// FIRESTORE USER DOCUMENT
+// =======================================
+
 async function ensureUserDoc(user) {
-  const userRef = doc(db, "users", user.uid);
-  const snap = await getDoc(userRef);
 
-  if (!snap.exists()) {
+  const userRef = doc(db, "users", user.uid);
+  const snapshot = await getDoc(userRef);
+
+  if (!snapshot.exists()) {
+
     await setDoc(userRef, {
       name: user.displayName || user.email.split("@")[0],
       email: user.email,
@@ -262,192 +1191,480 @@ async function ensureUserDoc(user) {
       createdAt: serverTimestamp(),
       updatedAt: serverTimestamp()
     });
+
   }
+
   return userRef;
 }
 
+
+// =======================================
+// LOAD USER DATA
+// =======================================
+
 async function loadUserData(user) {
+
   const userRef = await ensureUserDoc(user);
-  const snap = await getDoc(userRef);
-  const data = snap.data();
+  const snapshot = await getDoc(userRef);
 
-  $("balance").textContent = money(data.balance || 0);
-  $("greeting").textContent = "Hello, " + (data.name || user.email.split("@")[0]) + " 👋";
-  $("accountInfo").textContent = "Signed in as: " + user.email + "\nBalance: " + money(data.balance || 0);
+  if (!snapshot.exists()) {
+    throw new Error("Your account data could not be created.");
+  }
 
-  // Load recent transactions
+  const data = snapshot.data();
+
+  const balance = Number(data.balance || 0);
+
+  $("balance").textContent = money(balance);
+
+  $("greeting").textContent =
+    "Hello, " +
+    (data.name || user.email.split("@")[0]) +
+    " 👋";
+
+  $("accountInfo").textContent =
+    "Signed in as: " + user.email +
+    "\nDemo balance: " + money(balance);
+
   await loadTransactions(user.uid);
+
 }
 
+
+// =======================================
+// LOAD TRANSACTION HISTORY
+// =======================================
+
 async function loadTransactions(uid) {
-  const q = query(
-    collection(db, "users", uid, "transactions"),
+
+  const transactionsRef = collection(
+    db,
+    "users",
+    uid,
+    "transactions"
+  );
+
+  const transactionsQuery = query(
+    transactionsRef,
     orderBy("createdAt", "desc"),
     limit(20)
   );
-  const snapshot = await getDocs(q);
+
+  const snapshot = await getDocs(transactionsQuery);
 
   const recentEl = $("recent");
   const historyEl = $("history");
 
   if (snapshot.empty) {
-    recentEl.innerHTML = '<div class="empty">Your demo transactions will appear here.</div>';
-    historyEl.innerHTML = '<div class="empty">No demo transactions yet.</div>';
+
+    recentEl.innerHTML =
+      '<div class="empty">Your demo transactions will appear here.</div>';
+
+    historyEl.innerHTML =
+      '<div class="empty">No demo transactions yet.</div>';
+
     return;
   }
 
   let html = "";
-  snapshot.forEach(doc => {
-    const t = doc.data();
-    const sign = t.type === "credit" ? "+" : "-";
-    const color = t.type === "credit" ? "#12f0a0" : "#ff8a8a";
-    html += `<div class="tx">
-      <div style="display:flex;justify-content:space-between">
-        <span>${t.description || t.type}</span>
-        <span style="color:\( {color}"> \){sign}${money(t.amount)}</span>
+
+  snapshot.forEach(transactionDoc => {
+
+    const transaction = transactionDoc.data();
+
+    const isCredit = transaction.type === "credit";
+
+    const sign = isCredit ? "+" : "−";
+
+    const color = isCredit ? "#12f0a0" : "#ff8a8a";
+
+    const description = escapeHTML(
+      transaction.description || transaction.type || "Transaction"
+    );
+
+    const amount = money(transaction.amount);
+
+    const date = transaction.createdAt &&
+                 typeof transaction.createdAt.toDate === "function"
+      ? transaction.createdAt.toDate().toLocaleString("en-NG")
+      : "Date unavailable";
+
+    html += `
+      <div class="tx">
+        <div style="display:flex;justify-content:space-between;gap:10px">
+          <span>${description}</span>
+          <span style="color:${color};white-space:nowrap">
+            ${sign}${amount}
+          </span>
+        </div>
+
+        <div class="muted" style="font-size:11px;margin-top:5px">
+          ${escapeHTML(date)}
+        </div>
       </div>
-      <div class="muted" style="font-size:11px;margin-top:3px">${t.createdAt?.toDate().toLocaleString() || ""}</div>
-    </div>`;
+    `;
+
   });
 
   recentEl.innerHTML = html;
   historyEl.innerHTML = html;
+
 }
 
-// ========== DEMO ACTIONS ==========
-window.demoTransfer = async () => {
+
+// =======================================
+// DEMO TRANSACTION HELPER
+// =======================================
+
+async function recordTransaction(user, type, amount, description) {
+
+  const userRef = doc(db, "users", user.uid);
+
+  const transactionRef = collection(
+    db,
+    "users",
+    user.uid,
+    "transactions"
+  );
+
+  await addDoc(transactionRef, {
+    type,
+    amount,
+    description,
+    createdAt: serverTimestamp()
+  });
+
+  // Refresh dashboard and transaction history.
+  await loadUserData(user);
+
+}
+
+
+// =======================================
+// DEMO SEND MONEY
+// =======================================
+
+window.demoTransfer = async function() {
+
+  if (busy) return;
+
   const bank = $("bank").value.trim();
-  const account = $("account").value.trim();
-  const name = $("recipient").value.trim();
-  const amount = Number($("amount").value);
+  const account = $("accountNumber").value.trim();
+  const recipient = $("recipient").value.trim();
+  const amount = Number($("transferAmount").value);
 
-  if (!bank || !/^\d{10}$/.test(account) || !name || !Number.isFinite(amount) || amount <= 0) {
-    status("transferStatus", "Complete all fields with a 10-digit account number and valid amount.");
+  if (!bank || !/^\d{10}$/.test(account) || !recipient ||
+      !validAmount(amount, 1)) {
+
+    status(
+      "transferStatus",
+      "Complete every field. Enter a 10-digit account number and a valid amount.",
+      true
+    );
+
     return;
   }
 
   const user = auth.currentUser;
-  if (!user) return;
 
-  const userRef = doc(db, "users", user.uid);
-  const snap = await getDoc(userRef);
-  const currentBalance = snap.data().balance || 0;
-
-  if (amount > currentBalance) {
-    status("transferStatus", "Insufficient demo balance. Add money first.");
+  if (!user || !user.emailVerified) {
+    status("transferStatus", "Please log in with a verified email.", true);
     return;
   }
 
-  // Deduct balance
-  await updateDoc(userRef, {
-    balance: increment(-amount),
-    updatedAt: serverTimestamp()
-  });
+  busy = true;
 
-  // Add transaction
-  await addDoc(collection(db, "users", user.uid, "transactions"), {
-    type: "debit",
-    amount: amount,
-    description: `Transfer to \( {name} ( \){bank})`,
-    createdAt: serverTimestamp()
-  });
+  try {
 
-  status("transferStatus", `Demo transfer of ${money(amount)} to ${name} successful!`);
-  await loadUserData(user);
+    const userRef = doc(db, "users", user.uid);
+    const snapshot = await getDoc(userRef);
+
+    if (!snapshot.exists()) {
+      throw new Error("Wallet not found. Refresh and try again.");
+    }
+
+    const currentBalance = Number(snapshot.data().balance || 0);
+
+    if (amount > currentBalance) {
+      status(
+        "transferStatus",
+        "Insufficient demo balance. Add demo money first.",
+        true
+      );
+      return;
+    }
+
+    // DEMO ONLY: this is not a real bank transfer.
+    await updateDoc(userRef, {
+      balance: increment(-amount),
+      updatedAt: serverTimestamp()
+    });
+
+    await recordTransaction(
+      user,
+      "debit",
+      amount,
+      "Demo transfer to " + recipient + " (" + bank + ")"
+    );
+
+    status(
+      "transferStatus",
+      "Demo transfer of " + money(amount) +
+      " to " + recipient + " recorded. No real money was sent."
+    );
+
+    $("transferAmount").value = "";
+
+  } catch (error) {
+
+    status("transferStatus", errMsg(error), true);
+
+  } finally {
+
+    busy = false;
+
+  }
+
 };
 
-window.demoAddMoney = async () => {
+
+// =======================================
+// DEMO ADD MONEY
+// =======================================
+
+window.demoAddMoney = async function() {
+
+  if (busy) return;
+
   const amount = Number($("addAmount").value);
-  if (!Number.isFinite(amount) || amount < 100) {
-    status("addStatus", "Enter an amount of at least ₦100.");
+
+  if (!validAmount(amount, 100)) {
+    status(
+      "addStatus",
+      "Enter a valid amount of at least ₦100.",
+      true
+    );
     return;
   }
 
   const user = auth.currentUser;
-  if (!user) return;
 
-  const userRef = doc(db, "users", user.uid);
+  if (!user || !user.emailVerified) {
+    status("addStatus", "Please log in with a verified email.", true);
+    return;
+  }
 
-  await updateDoc(userRef, {
-    balance: increment(amount),
-    updatedAt: serverTimestamp()
-  });
+  busy = true;
 
-  await addDoc(collection(db, "users", user.uid, "transactions"), {
-    type: "credit",
-    amount: amount,
-    description: "Demo top-up",
-    createdAt: serverTimestamp()
-  });
+  try {
 
-  status("addStatus", `Successfully added ${money(amount)} to your demo wallet!`);
-  $("addAmount").value = "";
-  await loadUserData(user);
+    const userRef = doc(db, "users", user.uid);
+
+    await updateDoc(userRef, {
+      balance: increment(amount),
+      updatedAt: serverTimestamp()
+    });
+
+    await recordTransaction(
+      user,
+      "credit",
+      amount,
+      "Demo top-up"
+    );
+
+    status(
+      "addStatus",
+      money(amount) +
+      " has been added to your demo wallet. This is fictional money."
+    );
+
+    $("addAmount").value = "";
+
+  } catch (error) {
+
+    status("addStatus", errMsg(error), true);
+
+  } finally {
+
+    busy = false;
+
+  }
+
 };
 
-window.previewTopup = async () => {
+
+// =======================================
+// AIRTIME AND DATA PREVIEW
+// =======================================
+
+window.previewTopup = async function() {
+
+  if (busy) return;
+
   const phone = $("phone").value.trim();
   const amount = Number($("topup").value);
-  const network = $("network").value.trim() || "Network";
+  const network = $("network").value;
 
-  if (!/^0\d{10}$/.test(phone) || amount < 50) {
-    status("topupStatus", "Enter an 11-digit Nigerian phone number and an amount of at least ₦50.");
+  if (!network) {
+    status("topupStatus", "Please choose a mobile network.", true);
+    return;
+  }
+
+  if (!/^0\d{10}$/.test(phone) || !validAmount(amount, 50)) {
+
+    status(
+      "topupStatus",
+      "Enter a valid 11-digit Nigerian phone number and an amount of at least ₦50.",
+      true
+    );
+
     return;
   }
 
   const user = auth.currentUser;
-  if (!user) return;
 
-  const userRef = doc(db, "users", user.uid);
-  const snap = await getDoc(userRef);
-  const currentBalance = snap.data().balance || 0;
-
-  if (amount > currentBalance) {
-    status("topupStatus", "Insufficient demo balance.");
+  if (!user || !user.emailVerified) {
+    status("topupStatus", "Please log in with a verified email.", true);
     return;
   }
 
-  await updateDoc(userRef, {
-    balance: increment(-amount),
-    updatedAt: serverTimestamp()
-  });
+  busy = true;
 
-  await addDoc(collection(db, "users", user.uid, "transactions"), {
-    type: "debit",
-    amount: amount,
-    description: `Airtime/Data - \( {network} ( \){phone})`,
-    createdAt: serverTimestamp()
-  });
+  try {
 
-  status("topupStatus", `Demo purchase of ${money(amount)} airtime/data successful!`);
-  await loadUserData(user);
+    const userRef = doc(db, "users", user.uid);
+    const snapshot = await getDoc(userRef);
+
+    if (!snapshot.exists()) {
+      throw new Error("Wallet not found. Refresh and try again.");
+    }
+
+    const currentBalance = Number(snapshot.data().balance || 0);
+
+    if (amount > currentBalance) {
+      status("topupStatus", "Insufficient demo balance.", true);
+      return;
+    }
+
+    // DEMO ONLY: no airtime or data is purchased.
+    await updateDoc(userRef, {
+      balance: increment(-amount),
+      updatedAt: serverTimestamp()
+    });
+
+    await recordTransaction(
+      user,
+      "debit",
+      amount,
+      "Demo airtime/data - " + network + " (" + phone + ")"
+    );
+
+    status(
+      "topupStatus",
+      "Demo purchase of " + money(amount) +
+      " for " + network + " recorded. No airtime or data was purchased."
+    );
+
+    $("topup").value = "";
+
+  } catch (error) {
+
+    status("topupStatus", errMsg(error), true);
+
+  } finally {
+
+    busy = false;
+
+  }
+
 };
 
-// ========== AUTH STATE ==========
+
+// =======================================
+// AUTHENTICATION STATE
+// =======================================
+
 onAuthStateChanged(auth, async user => {
-  if (user) {
-    await reload(user);
-    if (user.emailVerified) {
-      $("auth").style.display = "none";
-      $("workspace").style.display = "block";
-      await loadUserData(user);
-    } else {
-      await signOut(auth);
-      $("auth").style.display = "block";
-      $("workspace").style.display = "none";
-    }
-  } else {
+
+  if (!user) {
+
     $("auth").style.display = "block";
     $("workspace").style.display = "none";
+
+    return;
   }
+
+  try {
+
+    await reload(user);
+
+    if (!user.emailVerified) {
+
+      $("auth").style.display = "block";
+      $("workspace").style.display = "none";
+
+      return;
+    }
+
+    $("auth").style.display = "none";
+    $("workspace").style.display = "block";
+
+    await loadUserData(user);
+
+  } catch (error) {
+
+    console.error("Dashboard loading error:", error);
+
+    $("auth").style.display = "block";
+    $("workspace").style.display = "none";
+
+    status(
+      "authStatus",
+      "You are signed in, but your dashboard could not load. " +
+      errMsg(error),
+      true
+    );
+
+  }
+
 });
 
-// Navigation
-document.querySelectorAll(".navbtn").forEach(b => b.onclick = () => showPage(b.dataset.page));
-window.showPage = n => {
-  document.querySelectorAll(".page").forEach(p => p.classList.toggle("active", p.id === "page-" + n));
-  document.querySelectorAll(".navbtn").forEach(b => b.classList.toggle("active", b.dataset.page === n));
+
+// =======================================
+// NAVIGATION
+// =======================================
+
+document.querySelectorAll(".navbtn").forEach(button => {
+
+  button.addEventListener("click", () => {
+    window.showPage(button.dataset.page);
+  });
+
+});
+
+window.showPage = function(pageName) {
+
+  document.querySelectorAll(".page").forEach(page => {
+
+    page.classList.toggle(
+      "active",
+      page.id === "page-" + pageName
+    );
+
+  });
+
+  document.querySelectorAll(".navbtn").forEach(button => {
+
+    button.classList.toggle(
+      "active",
+      button.dataset.page === pageName
+    );
+
+  });
+
 };
+
 </script>
+
 </body>
   </html>
