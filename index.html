@@ -1,40 +1,453 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#06130f"><title>SKI PAYS</title>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#06130f">
+<title>SKI PAYS</title>
 <style>
 :root{--bg:#06100e;--panel:#0d1b18;--line:#1d3b33;--text:#f5fff9;--muted:#9cb7ad;--green:#12f0a0}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 15% -10%,#12392c,transparent 38%),var(--bg);color:var(--text);font-family:system-ui,Arial,sans-serif}.app{max-width:1100px;margin:auto;padding:16px}.notice{background:#2a2110;border:1px solid #6d5422;color:#ffe6a4;padding:11px;border-radius:12px;font-size:12px}.brand{display:flex;align-items:center;gap:10px;font-size:24px;font-weight:900;margin:20px 0}.logo{width:42px;height:42px;border-radius:14px;background:var(--green);color:#042018;display:grid;place-items:center;font-size:26px}.brand em{color:var(--green);font-style:normal}.card{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:20px}.auth{max-width:480px;margin:25px auto}.muted,.note{color:var(--muted);font-size:13px;line-height:1.55}.field{margin:14px 0}.field label{display:block;color:#b7d0c6;font-size:12px;margin-bottom:7px}.field input,.field select{width:100%;padding:13px;border-radius:11px;border:1px solid #285044;background:#071510;color:white}.btn{border:0;border-radius:11px;padding:12px 16px;background:var(--green);color:#032016;font-weight:800;cursor:pointer}.secondary{background:#132c25;color:white;border:1px solid var(--line)}.full{width:100%}.switch{display:flex;gap:8px;margin:16px 0}.switch button{flex:1}.status{display:none;padding:12px;border-radius:10px;background:#102b22;color:var(--green);font-size:13px;margin-top:12px}.layout{display:grid;grid-template-columns:200px 1fr;gap:18px}.side{padding:10px;height:max-content}.navbtn{width:100%;text-align:left;background:none;border:0;color:#a8c2b8;padding:13px;border-radius:11px;cursor:pointer}.navbtn.active,.navbtn:hover{background:#103b2d;color:var(--green)}.page{display:none}.page.active{display:block}.heading{display:flex;justify-content:space-between;align-items:center;gap:12px}.heading h1{margin:8px 0}.balance{margin:16px 0;background:linear-gradient(120deg,#0b3d2d,#0b211b);border:1px solid #1c654b;border-radius:20px;padding:24px}.amount{font-size:38px;font-weight:850;margin:10px 0 18px}.actions{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:15px 0}.action{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:18px 8px;color:white;cursor:pointer}.action b,.action span{display:block}.action span{font-size:11px;color:var(--muted);margin-top:5px}.lower{display:grid;grid-template-columns:1fr 1fr;gap:14px}.tx{padding:12px 0;border-bottom:1px solid var(--line);font-size:13px}.empty{text-align:center;color:var(--muted);padding:20px}.footer{text-align:center;color:#648278;font-size:11px;padding:22px}.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:white;color:#052219;border-radius:10px;padding:12px;display:none}
 @media(max-width:760px){.layout{grid-template-columns:1fr}.side{display:flex;overflow:auto}.navbtn{min-width:max-content;width:auto}.actions{grid-template-columns:repeat(2,1fr)}.lower{grid-template-columns:1fr}.app{padding:12px}} 
-</style></head><body><div class="app">
-<div class="notice"><b>PROTOTYPE:</b> Authentication is connected to Firebase; wallet balance and payment screens are demonstrations only. No real money moves through this website.</div>
-<div class="brand"><div class="logo">S</div><div>SKI <em>PAYS</em></div></div>
-<section id="auth" class="auth card"><h1 id="authTitle">Create your account</h1><p id="authSub" class="muted">Join SKI PAYS with your email address.</p>
-<div class="switch"><button id="signupTab" class="btn" onclick="setMode('signup')">Create account</button><button id="loginTab" class="btn secondary" onclick="setMode('login')">Log in</button></div>
-<form id="authForm"><div class="field" id="nameWrap"><label for="name">Full name</label><input id="name" maxlength="80" autocomplete="name" placeholder="Your full name"></div><div class="field"><label for="email">Email address</label><input id="email" type="email" required autocomplete="email" placeholder="you@example.com"></div><div class="field"><label for="password">Password (at least 6 characters)</label><input id="password" type="password" minlength="6" required autocomplete="new-password" placeholder="Create a strong password"></div><button id="submit" class="btn full" type="submit">Create account</button></form>
-<button class="btn secondary" style="margin-top:10px;width:100%" onclick="resendVerification()">Resend verification email</button><div id="authStatus" class="status"></div><p class="note">Use an email address you control. Verify your email before logging in. Never share your password or verification link.</p></section>
-<div id="workspace" style="display:none"><div class="layout"><aside class="side card"><button class="navbtn active" data-page="home">⌂ Home</button><button class="navbtn" data-page="transfer">➤ Send money</button><button class="navbtn" data-page="add">＋ Add money</button><button class="navbtn" data-page="airtime">▣ Airtime & data</button><button class="navbtn" data-page="history">◷ Transactions</button><button class="navbtn" data-page="account">◎ Account</button></aside><main>
-<section id="page-home" class="page active"><div class="heading"><div><h1 id="greeting">Good day 👋</h1><p class="muted">Welcome to your SKI PAYS demo dashboard.</p></div><button class="btn secondary" onclick="showPage('account')">My account</button></div><div class="balance"><div class="muted">Demo wallet balance</div><div id="balance" class="amount">₦0.00</div><button class="btn" onclick="showPage('add')">＋ Add money</button> <button class="btn secondary" onclick="showPage('transfer')">➤ Send money</button></div><div class="actions"><button class="action" onclick="showPage('add')">＋<b>Add money</b><span>Demo only</span></button><button class="action" onclick="showPage('transfer')">➤<b>Send money</b><span>Bank / wallet</span></button><button class="action" onclick="showPage('airtime')">▣<b>Airtime</b><span>Preview</span></button><button class="action" onclick="showPage('airtime')">⌁<b>Buy data</b><span>Preview</span></button></div><div class="lower"><div class="card"><h3>Recent transactions</h3><div id="recent" class="empty">Your demo transactions will appear here.</div></div><div class="card"><h3>SKI PAYS</h3><p class="muted">Designed for simple payments across Nigeria. Real transfers require a suitable licensed financial partner and secure backend.</p></div></div></section>
-<section id="page-transfer" class="page card"><h1>Send money</h1><p class="muted">Demo form only. No transfer is made.</p><div class="field"><label for="bank">Bank or wallet</label><input id="bank" placeholder="Access Bank, OPay, PalmPay..."></div><div class="field"><label for="account">Account number</label><input id="account" inputmode="numeric" maxlength="10" placeholder="10-digit account number"></div><div class="field"><label for="recipient">Recipient name (demo)</label><input id="recipient" placeholder="Recipient name"></div><div class="field"><label for="amount">Amount (NGN)</label><input id="amount" type="number" min="1" placeholder="Amount"></div><button class="btn full" onclick="demoTransfer()">Review demo transfer</button><div id="transferStatus" class="status"></div></section>
-<section id="page-add" class="page card"><h1>Add money</h1><p class="muted">Deposit services will be connected after payment-provider setup. This page does not accept deposits or change your balance.</p></section>
-<section id="page-airtime" class="page card"><h1>Airtime & data</h1><p class="muted">Preview only — no purchase is made.</p><div class="field"><label for="network">Network</label><input id="network" placeholder="MTN, Airtel, Glo, 9mobile"></div><div class="field"><label for="phone">Phone number</label><input id="phone" maxlength="11" placeholder="08012345678"></div><div class="field"><label for="topup">Amount (NGN)</label><input id="topup" type="number" min="50" placeholder="Amount"></div><button class="btn full" onclick="previewTopup()">Preview purchase</button><div id="topupStatus" class="status"></div></section>
-<section id="page-history" class="page card"><h1>Transactions</h1><p class="muted">Demo activity only.</p><div id="history" class="empty">No demo transactions yet.</div></section>
-<section id="page-account" class="page card"><h1>Account</h1><p id="accountInfo" class="muted"></p><p class="note">Email verification is required. This login does not create a bank account or a wallet holding real funds.</p><button class="btn secondary" onclick="sendVerification()">Send verification email again</button> <button class="btn" onclick="logout()">Log out</button></section>
-</main></div></div><div class="footer">SKI PAYS · Your Money. Your Way. · Prototype only</div><div id="toast" class="toast"></div></div>
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="notice"><b>PROTOTYPE:</b> Authentication is connected to Firebase; wallet balance and payment screens are demonstrations only. No real money moves through this website.</div>
+  <div class="brand"><div class="logo">S</div><div>SKI <em>PAYS</em></div></div>
+
+  <section id="auth" class="auth card">
+    <h1 id="authTitle">Create your account</h1>
+    <p id="authSub" class="muted">Join SKI PAYS with your email address.</p>
+    <div class="switch">
+      <button id="signupTab" class="btn" onclick="setMode('signup')">Create account</button>
+      <button id="loginTab" class="btn secondary" onclick="setMode('login')">Log in</button>
+    </div>
+    <form id="authForm">
+      <div class="field" id="nameWrap">
+        <label for="name">Full name</label>
+        <input id="name" maxlength="80" autocomplete="name" placeholder="Your full name">
+      </div>
+      <div class="field">
+        <label for="email">Email address</label>
+        <input id="email" type="email" required autocomplete="email" placeholder="you@example.com">
+      </div>
+      <div class="field">
+        <label for="password">Password (at least 6 characters)</label>
+        <input id="password" type="password" minlength="6" required autocomplete="new-password" placeholder="Create a strong password">
+      </div>
+      <button id="submit" class="btn full" type="submit">Create account</button>
+    </form>
+    <button class="btn secondary" style="margin-top:10px;width:100%" onclick="resendVerification()">Resend verification email</button>
+    <div id="authStatus" class="status"></div>
+    <p class="note">Use an email address you control. Verify your email before logging in. Never share your password or verification link.</p>
+  </section>
+
+  <div id="workspace" style="display:none">
+    <div class="layout">
+      <aside class="side card">
+        <button class="navbtn active" data-page="home">⌂ Home</button>
+        <button class="navbtn" data-page="transfer">➤ Send money</button>
+        <button class="navbtn" data-page="add">＋ Add money</button>
+        <button class="navbtn" data-page="airtime">▣ Airtime & data</button>
+        <button class="navbtn" data-page="history">◷ Transactions</button>
+        <button class="navbtn" data-page="account">◎ Account</button>
+      </aside>
+      <main>
+        <section id="page-home" class="page active">
+          <div class="heading">
+            <div>
+              <h1 id="greeting">Good day 👋</h1>
+              <p class="muted">Welcome to your SKI PAYS demo dashboard.</p>
+            </div>
+            <button class="btn secondary" onclick="showPage('account')">My account</button>
+          </div>
+          <div class="balance">
+            <div class="muted">Demo wallet balance</div>
+            <div id="balance" class="amount">₦0.00</div>
+            <button class="btn" onclick="showPage('add')">＋ Add money</button>
+            <button class="btn secondary" onclick="showPage('transfer')">➤ Send money</button>
+          </div>
+          <div class="actions">
+            <button class="action" onclick="showPage('add')">＋<b>Add money</b><span>Demo only</span></button>
+            <button class="action" onclick="showPage('transfer')">➤<b>Send money</b><span>Bank / wallet</span></button>
+            <button class="action" onclick="showPage('airtime')">▣<b>Airtime</b><span>Preview</span></button>
+            <button class="action" onclick="showPage('airtime')">⌁<b>Buy data</b><span>Preview</span></button>
+          </div>
+          <div class="lower">
+            <div class="card">
+              <h3>Recent transactions</h3>
+              <div id="recent" class="empty">Your demo transactions will appear here.</div>
+            </div>
+            <div class="card">
+              <h3>SKI PAYS</h3>
+              <p class="muted">Designed for simple payments across Nigeria. Real transfers require a suitable licensed financial partner and secure backend.</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="page-transfer" class="page card">
+          <h1>Send money</h1>
+          <p class="muted">Demo form only. No real transfer is made.</p>
+          <div class="field"><label for="bank">Bank or wallet</label><input id="bank" placeholder="Access Bank, OPay, PalmPay..."></div>
+          <div class="field"><label for="account">Account number</label><input id="account" inputmode="numeric" maxlength="10" placeholder="10-digit account number"></div>
+          <div class="field"><label for="recipient">Recipient name (demo)</label><input id="recipient" placeholder="Recipient name"></div>
+          <div class="field"><label for="amount">Amount (NGN)</label><input id="amount" type="number" min="1" placeholder="Amount"></div>
+          <button class="btn full" onclick="demoTransfer()">Review demo transfer</button>
+          <div id="transferStatus" class="status"></div>
+        </section>
+
+        <section id="page-add" class="page card">
+          <h1>Add money</h1>
+          <p class="muted">This is a demo. You can add fake money to test the balance system.</p>
+          <div class="field"><label for="addAmount">Amount to add (NGN)</label><input id="addAmount" type="number" min="100" placeholder="e.g. 5000"></div>
+          <button class="btn full" onclick="demoAddMoney()">Add demo money</button>
+          <div id="addStatus" class="status"></div>
+        </section>
+
+        <section id="page-airtime" class="page card">
+          <h1>Airtime & data</h1>
+          <p class="muted">Preview only — no real purchase is made.</p>
+          <div class="field"><label for="network">Network</label><input id="network" placeholder="MTN, Airtel, Glo, 9mobile"></div>
+          <div class="field"><label for="phone">Phone number</label><input id="phone" maxlength="11" placeholder="08012345678"></div>
+          <div class="field"><label for="topup">Amount (NGN)</label><input id="topup" type="number" min="50" placeholder="Amount"></div>
+          <button class="btn full" onclick="previewTopup()">Preview purchase</button>
+          <div id="topupStatus" class="status"></div>
+        </section>
+
+        <section id="page-history" class="page card">
+          <h1>Transactions</h1>
+          <p class="muted">Your demo activity</p>
+          <div id="history" class="empty">No demo transactions yet.</div>
+        </section>
+
+        <section id="page-account" class="page card">
+          <h1>Account</h1>
+          <p id="accountInfo" class="muted"></p>
+          <p class="note">Email verification is required. This login does not create a bank account or a wallet holding real funds.</p>
+          <button class="btn secondary" onclick="sendVerification()">Send verification email again</button>
+          <button class="btn" onclick="logout()">Log out</button>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <div class="footer">SKI PAYS · Your Money. Your Way. · Prototype only</div>
+  <div id="toast" class="toast"></div>
+</div>
+
 <script type="module">
-import {initializeApp} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import {getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword,sendEmailVerification,onAuthStateChanged,signOut,reload,updateProfile} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-const firebaseConfig={apiKey:"AIzaSyATUZDAhv5F6TZzKEyaa55V1XPm88I93vI",authDomain:"ski-6f4d7.firebaseapp.com",projectId:"ski-6f4d7",storageBucket:"ski-6f4d7.firebasestorage.app",messagingSenderId:"281139161317",appId:"1:281139161317:web:1c760c04ea703d63020c0c"};
-const auth=getAuth(initializeApp(firebaseConfig));let mode="signup",tx=[];
-const $=id=>document.getElementById(id);
-function status(id,msg){$(id).textContent=msg;$(id).style.display="block"}
-function errMsg(e){return({"auth/email-already-in-use":"An account already exists with this email. Try logging in.","auth/invalid-email":"Enter a valid email address.","auth/weak-password":"Use a stronger password with at least 6 characters.","auth/invalid-credential":"Email or password is incorrect.","auth/network-request-failed":"Network error. Check your internet connection.","auth/too-many-requests":"Too many attempts. Wait a little and try again."})[e.code]||"Could not complete that action. Check your connection and Firebase settings."}
-window.setMode=m=>{mode=m;$("authTitle").textContent=m==="signup"?"Create your account":"Welcome back";$("authSub").textContent=m==="signup"?"Join SKI PAYS with your email address.":"Log in with your verified email address.";$("nameWrap").style.display=m==="signup"?"block":"none";$("password").autocomplete=m==="signup"?"new-password":"current-password";$("submit").textContent=m==="signup"?"Create account":"Log in";$("signupTab").className=m==="signup"?"btn":"btn secondary";$("loginTab").className=m==="login"?"btn":"btn secondary";$("authStatus").style.display="none"};
-$("authForm").addEventListener("submit",async e=>{e.preventDefault();$("submit").disabled=true;try{if(mode==="signup"){const c=await createUserWithEmailAndPassword(auth,$("email").value.trim(),$("password").value);if($("name").value.trim())await updateProfile(c.user,{displayName:$("name").value.trim()});await sendEmailVerification(c.user);await signOut(auth);status("authStatus","Account created. We sent a verification email. Verify your email, then return and choose Log in. Check spam/junk too.")}else{const c=await signInWithEmailAndPassword(auth,$("email").value.trim(),$("password").value);await reload(c.user);if(!c.user.emailVerified){await sendEmailVerification(c.user).catch(()=>{});await signOut(auth);status("authStatus","Email not verified yet. We sent another verification email where possible. Verify it, then log in again.")}}}catch(e){status("authStatus",errMsg(e))}finally{$("submit").disabled=false}});
-window.resendVerification=async()=>{if(!$("email").value.trim()||!$("password").value){status("authStatus","Enter your email and password first, then request a verification email.");return}try{const c=await signInWithEmailAndPassword(auth,$("email").value.trim(),$("password").value);await reload(c.user);if(c.user.emailVerified)status("authStatus","Your email is already verified. You can log in.");else{await sendEmailVerification(c.user);status("authStatus","Verification email sent. Check your inbox and spam folder.")}await signOut(auth)}catch(e){status("authStatus",errMsg(e))}};
-window.sendVerification=async()=>{if(auth.currentUser)try{await sendEmailVerification(auth.currentUser);alert("Verification email sent.")}catch(e){alert(errMsg(e))}};
-window.logout=()=>signOut(auth);
-onAuthStateChanged(auth,async u=>{if(u){await reload(u);if(u.emailVerified){$("auth").style.display="none";$("workspace").style.display="block";$("greeting").textContent="Hello, "+(u.displayName||u.email.split("@")[0])+" 👋";$("accountInfo").textContent="Signed in as: "+u.email}else{await signOut(auth);$("auth").style.display="block";$("workspace").style.display="none"}}else{$("auth").style.display="block";$("workspace").style.display="none"}});
-document.querySelectorAll(".navbtn").forEach(b=>b.onclick=()=>showPage(b.dataset.page));
-window.showPage=n=>{document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id==="page-"+n));document.querySelectorAll(".navbtn").forEach(b=>b.classList.toggle("active",b.dataset.page===n))};
-function money(n){return"₦"+Number(n).toLocaleString("en-NG",{minimumFractionDigits:2,maximumFractionDigits:2})}
-window.demoTransfer=()=>{const a=$("account").value.trim(),bank=$("bank").value.trim(),name=$("recipient").value.trim(),amount=Number($("amount").value);if(!bank||!/^\d{10}$/.test(a)||!name||!Number.isFinite(amount)||amount<=0){status("transferStatus","Complete all fields with a 10-digit account number and valid amount.");return}status("transferStatus",`Demo only: previewed ${money(amount)} to ${name} at ${bank}. No money was sent.`)};
-window.previewTopup=()=>{if(!/^0\\d{10}$/.test($("phone").value.trim())||Number($("topup").value)<50){status("topupStatus","Enter an 11-digit Nigerian phone number and an amount of at least ₦50.");return}status("topupStatus","Demo only. No airtime or data was purchased.")};
-</script></body></html>
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendEmailVerification, onAuthStateChanged, signOut, reload, updateProfile } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, addDoc, query, orderBy, limit, getDocs, serverTimestamp, increment } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyATUZDAhv5F6TZzKEyaa55V1XPm88I93vI",
+  authDomain: "ski-6f4d7.firebaseapp.com",
+  projectId: "ski-6f4d7",
+  storageBucket: "ski-6f4d7.firebasestorage.app",
+  messagingSenderId: "281139161317",
+  appId: "1:281139161317:web:1c760c04ea703d63020c0c"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+let mode = "signup";
+
+const $ = id => document.getElementById(id);
+
+function status(id, msg) {
+  $(id).textContent = msg;
+  $(id).style.display = "block";
+}
+
+function errMsg(e) {
+  return ({
+    "auth/email-already-in-use": "An account already exists with this email. Try logging in.",
+    "auth/invalid-email": "Enter a valid email address.",
+    "auth/weak-password": "Use a stronger password with at least 6 characters.",
+    "auth/invalid-credential": "Email or password is incorrect.",
+    "auth/network-request-failed": "Network error. Check your internet connection.",
+    "auth/too-many-requests": "Too many attempts. Wait a little and try again."
+  })[e.code] || "Could not complete that action. Check your connection and Firebase settings.";
+}
+
+function money(n) {
+  return "₦" + Number(n).toLocaleString("en-NG", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+// ========== AUTH ==========
+window.setMode = m => {
+  mode = m;
+  $("authTitle").textContent = m === "signup" ? "Create your account" : "Welcome back";
+  $("authSub").textContent = m === "signup" ? "Join SKI PAYS with your email address." : "Log in with your verified email address.";
+  $("nameWrap").style.display = m === "signup" ? "block" : "none";
+  $("password").autocomplete = m === "signup" ? "new-password" : "current-password";
+  $("submit").textContent = m === "signup" ? "Create account" : "Log in";
+  $("signupTab").className = m === "signup" ? "btn" : "btn secondary";
+  $("loginTab").className = m === "login" ? "btn" : "btn secondary";
+  $("authStatus").style.display = "none";
+};
+
+$("authForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  $("submit").disabled = true;
+  try {
+    if (mode === "signup") {
+      const cred = await createUserWithEmailAndPassword(auth, $("email").value.trim(), $("password").value);
+      if ($("name").value.trim()) await updateProfile(cred.user, { displayName: $("name").value.trim() });
+      await sendEmailVerification(cred.user);
+      await signOut(auth);
+      status("authStatus", "Account created. We sent a verification email. Verify your email, then return and choose Log in. Check spam/junk too.");
+    } else {
+      const cred = await signInWithEmailAndPassword(auth, $("email").value.trim(), $("password").value);
+      await reload(cred.user);
+      if (!cred.user.emailVerified) {
+        await sendEmailVerification(cred.user).catch(() => {});
+        await signOut(auth);
+        status("authStatus", "Email not verified yet. We sent another verification email where possible. Verify it, then log in again.");
+      }
+    }
+  } catch (e) {
+    status("authStatus", errMsg(e));
+  } finally {
+    $("submit").disabled = false;
+  }
+});
+
+window.resendVerification = async () => {
+  if (!\( ("email").value.trim() || ! \)("password").value) {
+    status("authStatus", "Enter your email and password first, then request a verification email.");
+    return;
+  }
+  try {
+    const cred = await signInWithEmailAndPassword(auth, $("email").value.trim(), $("password").value);
+    await reload(cred.user);
+    if (cred.user.emailVerified) {
+      status("authStatus", "Your email is already verified. You can log in.");
+    } else {
+      await sendEmailVerification(cred.user);
+      status("authStatus", "Verification email sent. Check your inbox and spam folder.");
+    }
+    await signOut(auth);
+  } catch (e) {
+    status("authStatus", errMsg(e));
+  }
+};
+
+window.sendVerification = async () => {
+  if (auth.currentUser) {
+    try {
+      await sendEmailVerification(auth.currentUser);
+      alert("Verification email sent.");
+    } catch (e) {
+      alert(errMsg(e));
+    }
+  }
+};
+
+window.logout = () => signOut(auth);
+
+// ========== FIRESTORE HELPERS ==========
+async function ensureUserDoc(user) {
+  const userRef = doc(db, "users", user.uid);
+  const snap = await getDoc(userRef);
+
+  if (!snap.exists()) {
+    await setDoc(userRef, {
+      name: user.displayName || user.email.split("@")[0],
+      email: user.email,
+      balance: 0,
+      createdAt: serverTimestamp(),
+      updatedAt: serverTimestamp()
+    });
+  }
+  return userRef;
+}
+
+async function loadUserData(user) {
+  const userRef = await ensureUserDoc(user);
+  const snap = await getDoc(userRef);
+  const data = snap.data();
+
+  $("balance").textContent = money(data.balance || 0);
+  $("greeting").textContent = "Hello, " + (data.name || user.email.split("@")[0]) + " 👋";
+  $("accountInfo").textContent = "Signed in as: " + user.email + "\nBalance: " + money(data.balance || 0);
+
+  // Load recent transactions
+  await loadTransactions(user.uid);
+}
+
+async function loadTransactions(uid) {
+  const q = query(
+    collection(db, "users", uid, "transactions"),
+    orderBy("createdAt", "desc"),
+    limit(20)
+  );
+  const snapshot = await getDocs(q);
+
+  const recentEl = $("recent");
+  const historyEl = $("history");
+
+  if (snapshot.empty) {
+    recentEl.innerHTML = '<div class="empty">Your demo transactions will appear here.</div>';
+    historyEl.innerHTML = '<div class="empty">No demo transactions yet.</div>';
+    return;
+  }
+
+  let html = "";
+  snapshot.forEach(doc => {
+    const t = doc.data();
+    const sign = t.type === "credit" ? "+" : "-";
+    const color = t.type === "credit" ? "#12f0a0" : "#ff8a8a";
+    html += `<div class="tx">
+      <div style="display:flex;justify-content:space-between">
+        <span>${t.description || t.type}</span>
+        <span style="color:\( {color}"> \){sign}${money(t.amount)}</span>
+      </div>
+      <div class="muted" style="font-size:11px;margin-top:3px">${t.createdAt?.toDate().toLocaleString() || ""}</div>
+    </div>`;
+  });
+
+  recentEl.innerHTML = html;
+  historyEl.innerHTML = html;
+}
+
+// ========== DEMO ACTIONS ==========
+window.demoTransfer = async () => {
+  const bank = $("bank").value.trim();
+  const account = $("account").value.trim();
+  const name = $("recipient").value.trim();
+  const amount = Number($("amount").value);
+
+  if (!bank || !/^\d{10}$/.test(account) || !name || !Number.isFinite(amount) || amount <= 0) {
+    status("transferStatus", "Complete all fields with a 10-digit account number and valid amount.");
+    return;
+  }
+
+  const user = auth.currentUser;
+  if (!user) return;
+
+  const userRef = doc(db, "users", user.uid);
+  const snap = await getDoc(userRef);
+  const currentBalance = snap.data().balance || 0;
+
+  if (amount > currentBalance) {
+    status("transferStatus", "Insufficient demo balance. Add money first.");
+    return;
+  }
+
+  // Deduct balance
+  await updateDoc(userRef, {
+    balance: increment(-amount),
+    updatedAt: serverTimestamp()
+  });
+
+  // Add transaction
+  await addDoc(collection(db, "users", user.uid, "transactions"), {
+    type: "debit",
+    amount: amount,
+    description: `Transfer to \( {name} ( \){bank})`,
+    createdAt: serverTimestamp()
+  });
+
+  status("transferStatus", `Demo transfer of ${money(amount)} to ${name} successful!`);
+  await loadUserData(user);
+};
+
+window.demoAddMoney = async () => {
+  const amount = Number($("addAmount").value);
+  if (!Number.isFinite(amount) || amount < 100) {
+    status("addStatus", "Enter an amount of at least ₦100.");
+    return;
+  }
+
+  const user = auth.currentUser;
+  if (!user) return;
+
+  const userRef = doc(db, "users", user.uid);
+
+  await updateDoc(userRef, {
+    balance: increment(amount),
+    updatedAt: serverTimestamp()
+  });
+
+  await addDoc(collection(db, "users", user.uid, "transactions"), {
+    type: "credit",
+    amount: amount,
+    description: "Demo top-up",
+    createdAt: serverTimestamp()
+  });
+
+  status("addStatus", `Successfully added ${money(amount)} to your demo wallet!`);
+  $("addAmount").value = "";
+  await loadUserData(user);
+};
+
+window.previewTopup = async () => {
+  const phone = $("phone").value.trim();
+  const amount = Number($("topup").value);
+  const network = $("network").value.trim() || "Network";
+
+  if (!/^0\d{10}$/.test(phone) || amount < 50) {
+    status("topupStatus", "Enter an 11-digit Nigerian phone number and an amount of at least ₦50.");
+    return;
+  }
+
+  const user = auth.currentUser;
+  if (!user) return;
+
+  const userRef = doc(db, "users", user.uid);
+  const snap = await getDoc(userRef);
+  const currentBalance = snap.data().balance || 0;
+
+  if (amount > currentBalance) {
+    status("topupStatus", "Insufficient demo balance.");
+    return;
+  }
+
+  await updateDoc(userRef, {
+    balance: increment(-amount),
+    updatedAt: serverTimestamp()
+  });
+
+  await addDoc(collection(db, "users", user.uid, "transactions"), {
+    type: "debit",
+    amount: amount,
+    description: `Airtime/Data - \( {network} ( \){phone})`,
+    createdAt: serverTimestamp()
+  });
+
+  status("topupStatus", `Demo purchase of ${money(amount)} airtime/data successful!`);
+  await loadUserData(user);
+};
+
+// ========== AUTH STATE ==========
+onAuthStateChanged(auth, async user => {
+  if (user) {
+    await reload(user);
+    if (user.emailVerified) {
+      $("auth").style.display = "none";
+      $("workspace").style.display = "block";
+      await loadUserData(user);
+    } else {
+      await signOut(auth);
+      $("auth").style.display = "block";
+      $("workspace").style.display = "none";
+    }
+  } else {
+    $("auth").style.display = "block";
+    $("workspace").style.display = "none";
+  }
+});
+
+// Navigation
+document.querySelectorAll(".navbtn").forEach(b => b.onclick = () => showPage(b.dataset.page));
+window.showPage = n => {
+  document.querySelectorAll(".page").forEach(p => p.classList.toggle("active", p.id === "page-" + n));
+  document.querySelectorAll(".navbtn").forEach(b => b.classList.toggle("active", b.dataset.page === n));
+};
+</script>
+</body>
+  </html>
